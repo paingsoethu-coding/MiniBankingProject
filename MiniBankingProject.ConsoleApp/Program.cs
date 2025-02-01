@@ -1,2 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+
+
+
+using MiniBankingProject.ConsoleApp;
+
+
+LoginPage loginPage = new LoginPage();
+loginPage.Start();
+
+
+//Console.ReadKey();

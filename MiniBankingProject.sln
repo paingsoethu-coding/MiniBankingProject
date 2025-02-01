@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankingProject.ConsoleApp", "MiniBankingProject.ConsoleApp\MiniBankingProject.ConsoleApp.csproj", "{589CEC11-D61B-4E6B-A799-0D14A7D1F697}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankingProject.Api", "MiniBankingProject.Api\MiniBankingProject.Api.csproj", "{13099F2A-462D-4388-BB77-B5662D6768CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankingProject.Domain", "MiniBankingProject.Domain\MiniBankingProject.Domain.csproj", "{4666C2E5-0C36-417D-B7C8-892C4CADBB7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankingProject.Database", "MiniBankingProject.Database\MiniBankingProject.Database.csproj", "{2AFD3519-90FC-45D9-BE17-F7B8923E6B25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{589CEC11-D61B-4E6B-A799-0D14A7D1F697}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{589CEC11-D61B-4E6B-A799-0D14A7D1F697}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{589CEC11-D61B-4E6B-A799-0D14A7D1F697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13099F2A-462D-4388-BB77-B5662D6768CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13099F2A-462D-4388-BB77-B5662D6768CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13099F2A-462D-4388-BB77-B5662D6768CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13099F2A-462D-4388-BB77-B5662D6768CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4666C2E5-0C36-417D-B7C8-892C4CADBB7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4666C2E5-0C36-417D-B7C8-892C4CADBB7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4666C2E5-0C36-417D-B7C8-892C4CADBB7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4666C2E5-0C36-417D-B7C8-892C4CADBB7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AFD3519-90FC-45D9-BE17-F7B8923E6B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AFD3519-90FC-45D9-BE17-F7B8923E6B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AFD3519-90FC-45D9-BE17-F7B8923E6B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AFD3519-90FC-45D9-BE17-F7B8923E6B25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
