@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MiniBankingProject.Database.Models;
+using MiniBankingProject.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace MiniBankingProject.Domain.Features.User
     public class UserService
     {
         private readonly AppDbContext _db = new AppDbContext();
+
+        
 
         public List<TblUser> GetUsers()
         {
@@ -105,5 +108,62 @@ namespace MiniBankingProject.Domain.Features.User
             return result > 0;
         }
 
+
+        public List<TblTransaction> TransactionsHistroy()
+        {
+            var model = _db.TblTransactions.AsNoTracking().ToList();
+
+            return model;
+        }
+
+        public TblTransaction TransactionHistroy(int id)
+        {
+            var item = _db.TblTransactions
+                .AsNoTracking()
+                .FirstOrDefault(x => x.TransactionId == id);
+            return item;
+        }
+
+        public TransferRequestModel Transfer(TransferRequestModel transaction)
+        {
+           var Fromuser = _db.TblUsers
+               .AsNoTracking()
+               .FirstOrDefault(x => x.MobileNo == transaction.FromMobileNo);
+
+            var Touser = _db.TblUsers
+               .AsNoTracking()
+               .FirstOrDefault(x => x.MobileNo == transaction.ToMobileNo);
+
+            if (Fromuser == null || Touser == null)
+            {
+                throw new Exception("One or both users not found.");
+            }
+
+            Fromuser.Balance -= transaction.TransferedAmount;
+            Touser.Balance += transaction.TransferedAmount;
+
+            _db.Entry(Fromuser).State = EntityState.Modified;
+            _db.Entry(Touser).State = EntityState.Modified;
+
+            //Add User to Transaction
+            _db.Entry(Fromuser).Property(x => x.CreatedDate).IsModified = false;
+
+            TblTransaction transaction1 = new TblTransaction
+            {
+                FromMobileNo = transaction.FromMobileNo,
+                ToMobileNo = transaction.ToMobileNo,
+                TransferedAmount = transaction.TransferedAmount,
+                Dates = DateTime.Now,
+                Notes = transaction.Notes,
+                UserId = Fromuser.UserId // Ensure this is set correctly
+            };
+
+            _db.TblTransactions.Add(transaction1);
+            _db.SaveChanges();
+
+            return transaction;
+        }
+
     }
 }
+

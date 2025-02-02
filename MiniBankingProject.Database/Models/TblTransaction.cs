@@ -21,5 +21,5 @@ public partial class TblTransaction
 
     public bool DeleteFlag { get; set; }
 
-    public virtual TblUser User { get; set; } = null!;
+    public virtual TblUser User { get; set; }
 }
