@@ -65,7 +65,7 @@ Notes
 - Phone No Change
 - Forget Pin
 - Reset Pin
-- Frist Time Login (Pin set up)
+- First-Time Login (PIN set up)
 
 
 dotnet ef dbcontext scaffold "Server=MSI\SQLEXPRESS2022; Database=MiniDigitalWallet; User Id=sa; Password=sasa; TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -c AppDbContext -Tbl_User -f
