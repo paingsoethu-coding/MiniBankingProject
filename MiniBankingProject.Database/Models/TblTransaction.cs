@@ -9,6 +9,8 @@ public partial class TblTransaction
 
     public int UserId { get; set; }
 
+    public int TransactionNo { get; set; }
+
     public string FromMobileNo { get; set; } = null!;
 
     public string ToMobileNo { get; set; } = null!;

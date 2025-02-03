@@ -9,6 +9,10 @@ namespace MiniBankingProject.Domain.Models
 {
     public class TransferRequestModel
     {
+        public int TransactionId { get; set; }
+
+        public int transactionNo { get; set; }
+
         public string FromMobileNo { get; set; } = null!;
 
         public string ToMobileNo { get; set; } = null!;
