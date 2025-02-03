@@ -7,7 +7,7 @@ Mobile No
 
 Me - Another Person
 
-User Table
+### User Table D 
 ID
 Full Name
 Mobile No
@@ -17,11 +17,11 @@ Pin => 123456
 
 Bank => Deposit / Withdraw
 
-### Deposit 
+### Deposit D
 
 Deposit Api => Mobile No, Amount (+) => 1000 + (-1000)
 
-### Withdraw
+### Withdraw D
 
 Withdraw Api => Mobile No, Amount (+) => 1000 - (-1000)
 Minimum Balance 10000
@@ -29,7 +29,7 @@ Minimum Balance 10000
 Validation
 Check Balance if < 10000 => Cannot Withdraw
 
-### Transfer
+### Transfer D
 
 From Mobile No =>
 To Mobile No => 
@@ -37,8 +37,8 @@ Amount
 Pin (check validation in BLL)
 Notes
 
-validation
-- Check From Mobile No exits ?
+### Validation D
+- Check From Mobile No exits ? 
 - Check To Mobile No exits ?
 - From Mobile No != To Mobile No
 - Pin == Pin
@@ -57,15 +57,12 @@ Notes
 
 4 API
 
-- Balance
+- Balance D
+- Create Wallet User D
+- Login D
+- Change Pin D
 
-- Create Wallet User
-- Login
-- Change Pin
-- Phone No Change
-- Forget Pin
-- Reset Pin
-- First-Time Login (PIN set up)
+- [- Phone No Change, - Forget Pin, - Reset Pin,- First-Time Login (PIN set up)]
 
 
 dotnet ef dbcontext scaffold "Server=MSI\SQLEXPRESS2022; Database=MiniDigitalWallet; User Id=sa; Password=sasa; TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -c AppDbContext -Tbl_User -f
