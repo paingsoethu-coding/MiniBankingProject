@@ -68,38 +68,6 @@ namespace MiniBankingProject.Domain.Features.User
             return user;
         }
 
-        #region Old Code
-        //public TblUser ChangePin(int id,string oldpin,string newpin)
-        //{
-        //    var item = _db.TblUsers
-        //        .FirstOrDefault(x => x.UserId == id);
-        //    if (item is null) {return null;}
-        //    if (item.Pin != oldpin)
-        //    {
-        //        throw new Exception("Old Pin is not correct.");
-        //    }
-        //    item.Pin = newpin;
-        //    item.UpdatedDate = DateTime.Now;
-
-        //    //if (!string.IsNullOrEmpty(user.FullName))
-        //    //{
-        //    //    item.FullName = user.FullName;
-        //    //}
-        //    //if (!string.IsNullOrEmpty(user.MobileNo))
-        //    //{
-        //    //    item.MobileNo = user.MobileNo;
-        //    //}
-        //    //if (user.Balance > 0)
-        //    //{
-        //    //    item.Balance = user.Balance;
-        //    //} 
-
-        //    _db.Entry(item).State = EntityState.Modified;
-        //    _db.SaveChanges();
-        //    return item;    
-        //}
-        #endregion
-
         public ServiceResult<TblUser> ChangePin(int id, string oldpin, string newpin)
         {
             var item = _db.TblUsers.FirstOrDefault(x => x.UserId == id);
@@ -149,7 +117,6 @@ namespace MiniBankingProject.Domain.Features.User
                 Data = item
             };
         }
-
 
         public bool? DeleteUser(int id)
         {
@@ -232,6 +199,62 @@ namespace MiniBankingProject.Domain.Features.User
             return result;
         }
 
+        public TblUser Deposit(int id, decimal amount)
+        {
+            var item = _db.TblUsers
+                .FirstOrDefault(x => x.UserId == id);
+            if (item is null) { return null; }
+            item.Balance += amount;
+            item.UpdatedDate = DateTime.Now;
+            _db.Entry(item).State = EntityState.Modified;
+            _db.SaveChanges();
+            return item;
+        }
+
+        public TblUser Withdraw(int id, decimal amount)
+        {
+            var item = _db.TblUsers
+                .FirstOrDefault(x => x.UserId == id);
+            if (item is null) { return null; }
+            item.Balance -= amount;
+            item.UpdatedDate = DateTime.Now;
+            _db.Entry(item).State = EntityState.Modified;
+            _db.SaveChanges();
+            return item;
+        }
+
+        #region Old Code
+
+        //public TblUser ChangePin(int id,string oldpin,string newpin)
+        //{
+        //    var item = _db.TblUsers
+        //        .FirstOrDefault(x => x.UserId == id);
+        //    if (item is null) {return null;}
+        //    if (item.Pin != oldpin)
+        //    {
+        //        throw new Exception("Old Pin is not correct.");
+        //    }
+        //    item.Pin = newpin;
+        //    item.UpdatedDate = DateTime.Now;
+
+        //    //if (!string.IsNullOrEmpty(user.FullName))
+        //    //{
+        //    //    item.FullName = user.FullName;
+        //    //}
+        //    //if (!string.IsNullOrEmpty(user.MobileNo))
+        //    //{
+        //    //    item.MobileNo = user.MobileNo;
+        //    //}
+        //    //if (user.Balance > 0)
+        //    //{
+        //    //    item.Balance = user.Balance;
+        //    //} 
+
+        //    _db.Entry(item).State = EntityState.Modified;
+        //    _db.SaveChanges();
+        //    return item;    
+        //}
+
         //public TblTransaction TransactionHistroy(int id)
         //{
         //    var item = _db.TblTransactions
@@ -240,6 +263,7 @@ namespace MiniBankingProject.Domain.Features.User
         //    return item;
         //}
 
+        #endregion
     }
 
     // Login Request

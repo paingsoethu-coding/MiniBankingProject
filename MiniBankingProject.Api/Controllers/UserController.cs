@@ -63,34 +63,6 @@ namespace MiniBankingProject.Api.Controllers
             return Ok(item);
         }
 
-        #region old code
-        //[HttpPatch("ChangePin/{id}")]
-        //public IActionResult ChangePin(int id, [FromBody] ChangePinRequest request)
-        //{
-        //    if (request == null || string.IsNullOrWhiteSpace(request.OldPin) || 
-        //        string.IsNullOrWhiteSpace(request.NewPin))
-        //    {
-        //        return BadRequest("Both old and new PINs are required.");
-        //    }
-
-        //    // Ensure PINs are exactly 6 digits and numeric
-        //    if (request.OldPin.Length != 6 || !request.OldPin.All(char.IsDigit) ||
-        //        request.NewPin.Length != 6 || !request.NewPin.All(char.IsDigit))
-        //    {
-        //        return BadRequest("Both PINs must be exactly 6 digits and contain only numbers.");
-        //    }
-
-        //    var result = _service.ChangePin(id, request.OldPin, request.NewPin);
-
-        //    if (result == null)
-        //    {
-        //        return NotFound("User not found or old PIN is incorrect.");
-        //    }
-
-        //    return Ok("PIN changed successfully.");
-        //}
-        #endregion
-
         [HttpPatch("ChangePin/{id}")]
         public IActionResult ChangePin(int id, [FromBody] ChangePinRequest request)
         {
@@ -117,6 +89,34 @@ namespace MiniBankingProject.Api.Controllers
         }
 
         [HttpPut("UpdateProfile/{id}")]
+
+        #region old code
+        //[HttpPatch("ChangePin/{id}")]
+        //public IActionResult ChangePin(int id, [FromBody] ChangePinRequest request)
+        //{
+        //    if (request == null || string.IsNullOrWhiteSpace(request.OldPin) || 
+        //        string.IsNullOrWhiteSpace(request.NewPin))
+        //    {
+        //        return BadRequest("Both old and new PINs are required.");
+        //    }
+
+        //    // Ensure PINs are exactly 6 digits and numeric
+        //    if (request.OldPin.Length != 6 || !request.OldPin.All(char.IsDigit) ||
+        //        request.NewPin.Length != 6 || !request.NewPin.All(char.IsDigit))
+        //    {
+        //        return BadRequest("Both PINs must be exactly 6 digits and contain only numbers.");
+        //    }
+
+        //    var result = _service.ChangePin(id, request.OldPin, request.NewPin);
+
+        //    if (result == null)
+        //    {
+        //        return NotFound("User not found or old PIN is incorrect.");
+        //    }
+
+        //    return Ok("PIN changed successfully.");
+        //}
+
         //public IActionResult UpdateUsers(int id, TblUser user)
         //{
         //    var item = _service.UpdateUser(id, user);
@@ -129,18 +129,7 @@ namespace MiniBankingProject.Api.Controllers
         //    var item = _service.PatchUser(id, user);
         //    return Ok(item);
         //}
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
-        {
-            var item = _service.DeleteUser(id);
-
-            return Ok();
-        }
-
-
-
-        
+        #endregion
 
         // POST: api/User/Transfer
         [HttpPost("Transfer")]
@@ -156,6 +145,28 @@ namespace MiniBankingProject.Api.Controllers
             var lst = _service.TransactionsHistroy(id);
             if (lst is null) { return NotFound(); }
             return Ok(lst);
+        }
+
+        [HttpPatch("Deposit/{id}")]
+        public IActionResult Deposit(int id, decimal amount)
+        {
+            var item = _service.Deposit(id, amount);
+            return Ok(item);
+        }
+
+        [HttpPatch("Withdraw/{id}")]
+        public IActionResult Withdraw(int id, decimal amount)
+        {
+            var item = _service.Withdraw(id, amount);
+            return Ok(item);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            var item = _service.DeleteUser(id);
+
+            return Ok();
         }
     }
 }

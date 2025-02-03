@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace MiniBankingProject.Domain.Models
 {
-    internal class TransactionRequestModel
+    public class TransactionRequestModel
     {
+        public int UserId { get; set; }
+
+        public string FullName { get; set; } = null!;
+
+        public string MobileNo { get; set; } = null!;
+
+        public decimal Balance { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
+
     }
 }
