@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MiniBankingProject.Database.Models;
+﻿namespace MiniBankingProject.Database.Models;
 
 public partial class TblTransaction
 {
@@ -10,6 +7,8 @@ public partial class TblTransaction
     public int UserId { get; set; }
 
     public int TransactionNo { get; set; }
+
+    public string TransactionType { get; set; } = null!;
 
     public string FromMobileNo { get; set; } = null!;
 
@@ -23,5 +22,5 @@ public partial class TblTransaction
 
     public bool DeleteFlag { get; set; }
 
-    public virtual TblUser User { get; set; }
+    public virtual TblUser User { get; set; } = null!;
 }

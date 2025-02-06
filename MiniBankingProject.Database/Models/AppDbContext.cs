@@ -21,13 +21,9 @@ public partial class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
-        {
-            string connectionString = "Data Source= MSI\\SQLEXPRESS2022; Initial Catalog=MiniDigitalWallet; User ID=sa; Password=sasa; TrustServerCertificate=True;";
-            optionsBuilder.UseSqlServer(connectionString);
-        }
+        optionsBuilder.UseSqlServer
+            ("Data Source=MSI\\SQLEXPRESS2022; Initial Catalog=MiniDigitalWallet; User Id=sa; Password=sasa; TrustServerCertificate=True;");
     }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -37,12 +33,18 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("Tbl_Transaction");
 
-            entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
+            entity.Property(e => e.TransactionId)
+                .ValueGeneratedNever()
+                .HasColumnName("TransactionID");
             entity.Property(e => e.Dates).HasColumnType("datetime");
             entity.Property(e => e.FromMobileNo)
                 .HasMaxLength(13)
                 .IsUnicode(false);
             entity.Property(e => e.ToMobileNo)
+                .HasMaxLength(13)
+                .IsUnicode(false);
+            entity.Property(e => e.TransactionNo).ValueGeneratedOnAdd();
+            entity.Property(e => e.TransactionType)
                 .HasMaxLength(13)
                 .IsUnicode(false);
             entity.Property(e => e.TransferedAmount).HasColumnType("decimal(18, 2)");
