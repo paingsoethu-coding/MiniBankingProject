@@ -19,7 +19,7 @@ namespace MiniBankingProject.Domain.Features.Transaction
             return model;
         }
 
-        public TblTransaction GetTransaction(int id)
+        public TblTransaction? GetTransaction(int id)
         {
             var item = _db.TblTransactions
                 .AsNoTracking()
@@ -34,7 +34,7 @@ namespace MiniBankingProject.Domain.Features.Transaction
             return transaction;
         }
 
-        public TblTransaction UpdateTransaction(int id, TblTransaction transaction)
+        public TblTransaction? UpdateTransaction(int id, TblTransaction transaction)
         {
             var item = _db.TblTransactions
                 .AsNoTracking()
@@ -44,6 +44,8 @@ namespace MiniBankingProject.Domain.Features.Transaction
                 return null;
             }
 
+            item.TransactionNo = transaction.TransactionNo;
+            item.TransactionType = transaction.TransactionType;
             item.FromMobileNo = transaction.FromMobileNo;
             item.ToMobileNo = transaction.ToMobileNo;
             item.TransferedAmount = transaction.TransferedAmount;
@@ -55,7 +57,7 @@ namespace MiniBankingProject.Domain.Features.Transaction
             return transaction;
         }
 
-        public TblTransaction PatchTransaction(int id, TblTransaction transaction)
+        public TblTransaction? PatchTransaction(int id, TblTransaction transaction)
         {
             var item = _db.TblTransactions
                 .AsNoTracking()
@@ -64,6 +66,14 @@ namespace MiniBankingProject.Domain.Features.Transaction
             if (item is null)
             {
                 return null;
+            }
+            if (!string.IsNullOrEmpty(transaction.TransactionNo.ToString()))
+            {
+                item.TransactionNo = transaction.TransactionNo;
+            }
+            if (!string.IsNullOrEmpty(transaction.TransactionType))
+            {
+                item.TransactionType = transaction.TransactionType;
             }
             if (!string.IsNullOrEmpty(transaction.FromMobileNo))
             {

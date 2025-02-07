@@ -13,6 +13,8 @@ namespace MiniBankingProject.Domain.Models
 
         public int transactionNo { get; set; }
 
+        public string TransactionType { get; set; } = null!;
+
         public string FromMobileNo { get; set; } = null!;
 
         public string ToMobileNo { get; set; } = null!;
