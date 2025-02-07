@@ -1,8 +1,11 @@
-﻿namespace MiniBankingProject.Database.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace MiniBankingProject.Database.Models;
 
 public partial class TblTransaction
 {
-    public int TransactionId { get; set; }
+    public string? TransactionId { get; set; }
 
     public int UserId { get; set; }
 
@@ -18,7 +21,7 @@ public partial class TblTransaction
 
     public DateTime Dates { get; set; }
 
-    public string Notes { get; set; } = null!;
+    public string? Notes { get; set; }
 
     public bool DeleteFlag { get; set; }
 

@@ -19,7 +19,7 @@ namespace MiniBankingProject.Domain.Features.Transaction
             return model;
         }
 
-        public TblTransaction? GetTransaction(int id)
+        public TblTransaction? GetTransaction(string id)
         {
             var item = _db.TblTransactions
                 .AsNoTracking()
@@ -34,7 +34,7 @@ namespace MiniBankingProject.Domain.Features.Transaction
             return transaction;
         }
 
-        public TblTransaction? UpdateTransaction(int id, TblTransaction transaction)
+        public TblTransaction? UpdateTransaction(string id, TblTransaction transaction)
         {
             var item = _db.TblTransactions
                 .AsNoTracking()
@@ -57,7 +57,7 @@ namespace MiniBankingProject.Domain.Features.Transaction
             return transaction;
         }
 
-        public TblTransaction? PatchTransaction(int id, TblTransaction transaction)
+        public TblTransaction? PatchTransaction(string id, TblTransaction transaction)
         {
             var item = _db.TblTransactions
                 .AsNoTracking()
@@ -99,7 +99,7 @@ namespace MiniBankingProject.Domain.Features.Transaction
             return transaction;
         }
 
-        public bool? DeleteTransaction(int id)
+        public bool? DeleteTransaction(string id)
         {
             var item = _db.TblTransactions
                 .AsNoTracking()

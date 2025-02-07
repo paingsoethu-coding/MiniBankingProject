@@ -21,22 +21,28 @@ public partial class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer
-            ("Data Source=MSI\\SQLEXPRESS2022; Initial Catalog=MiniDigitalWallet; User Id=sa; Password=sasa; TrustServerCertificate=True;");
+        optionsBuilder.UseSqlServer("Server=MSI\\SQLEXPRESS2022; Database=MiniDigitalWallet; User Id=sa; Password=sasa; TrustServerCertificate=True;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblTransaction>(entity =>
         {
-            entity.HasKey(e => e.TransactionId);
+            entity.HasKey(e => e.TransactionId).HasName("PK__Tbl_Tran__55433A4BA3E7F165");
 
             entity.ToTable("Tbl_Transaction");
 
+            entity.HasIndex(e => e.TransactionNo, "UQ__Tbl_Tran__554342D9F2D15EC8").IsUnique();
+
             entity.Property(e => e.TransactionId)
-                .ValueGeneratedNever()
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasDefaultValueSql("(newid())")
+                .IsFixedLength()
                 .HasColumnName("TransactionID");
-            entity.Property(e => e.Dates).HasColumnType("datetime");
+            entity.Property(e => e.Dates)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.FromMobileNo)
                 .HasMaxLength(13)
                 .IsUnicode(false);
@@ -52,8 +58,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.TblTransactions)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Tbl_Transaction_Tbl_User");
+                .HasConstraintName("FK_Tbl_Transaction_User");
         });
 
         modelBuilder.Entity<TblUser>(entity =>

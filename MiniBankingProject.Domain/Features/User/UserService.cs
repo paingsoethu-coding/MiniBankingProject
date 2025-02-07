@@ -165,7 +165,7 @@ namespace MiniBankingProject.Domain.Features.User
 
             TblTransaction transaction1 = new TblTransaction
             {
-                TransactionNo = transaction.transactionNo,
+                TransactionNo = transaction.TransactionNo,
                 TransactionType = transaction.TransactionType,
                 FromMobileNo = transaction.FromMobileNo,
                 ToMobileNo = transaction.ToMobileNo,
@@ -235,13 +235,22 @@ namespace MiniBankingProject.Domain.Features.User
             return model;
         }
 
-        public async Task<Result<ResultTransferResponseModel>> TransferAsync2(string senderId, string receiverId, decimal amount, string notes)
+        public Result<ResultTransferResponseModel> TransferAsync2(string transactionType,
+            string senderId, string receiverId, decimal amount, string notes)
         {
-            Result<ResultTransferResponseModel> model = new Result<ResultTransferResponseModel>();
+            var model = new Result<ResultTransferResponseModel>();
 
-            var Fromuser = await _db.TblUsers.FirstOrDefaultAsync(x => x.MobileNo == senderId);
+            //var Fromuser = await _db.TblUsers.FirstOrDefaultAsync(x => x.MobileNo == senderId);
 
-            var Touser = await _db.TblUsers.FirstOrDefaultAsync(x => x.MobileNo == receiverId);
+            //var Touser = await _db.TblUsers.FirstOrDefaultAsync(x => x.MobileNo == receiverId);
+
+            var Fromuser = _db.TblUsers
+                .AsNoTracking()
+                .FirstOrDefault(x => x.MobileNo == senderId);
+
+            var Touser = _db.TblUsers
+                .AsNoTracking()
+                .FirstOrDefault(x => x.MobileNo == receiverId);
 
             if (Fromuser == null || Touser == null)
             {
@@ -262,15 +271,26 @@ namespace MiniBankingProject.Domain.Features.User
             Fromuser.Balance -= amount;
             Touser.Balance += amount;
 
-            //_db.Entry(Fromuser).State = EntityState.Modified;
-            //_db.Entry(Touser).State = EntityState.Modified;
+            _db.Entry(Fromuser).State = EntityState.Modified;
+            _db.Entry(Touser).State = EntityState.Modified;
 
             //Add User to Transaction
-            //_db.Entry(Fromuser).Property(x => x.CreatedDate).IsModified = false;
+            _db.Entry(Fromuser).Property(x => x.CreatedDate).IsModified = false;
+
+            //var tbltransaction_for_No = _db.TblTransactions
+            //    .FirstOrDefault(x => x.UserId == Fromuser.UserId);
+
+            //var no = 0!;
+            //if (tbltransaction_for_No is not null)
+            //{
+            //    no = tbltransaction_for_No.TransactionNo + 1;
+            //}
+            
 
             TblTransaction transaction = new TblTransaction
             {
-                TransactionType = "Transfer",
+                //TransactionNo = no,
+                TransactionType = transactionType,
                 FromMobileNo = senderId,
                 ToMobileNo = receiverId,
                 TransferedAmount = amount,
@@ -279,10 +299,16 @@ namespace MiniBankingProject.Domain.Features.User
                 UserId = Fromuser.UserId // Ensure this is set correctly
             };
 
-            await _db.TblTransactions.AddAsync(transaction);
-            await _db.SaveChangesAsync();
+            //_db.TblTransactions.Add(transaction);
+            //_db.SaveChanges();
 
-            ResultTransferResponseModel item = new ResultTransferResponseModel() 
+
+            //_db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Tbl_Transaction ON");
+            // Add the transaction
+            _db.TblTransactions.Add(transaction);
+            _db.SaveChanges();
+            //_db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Tbl_Transaction OFF");
+            var item = new ResultTransferResponseModel()
             {
                 Transaction = transaction
             };
@@ -307,13 +333,13 @@ namespace MiniBankingProject.Domain.Features.User
                 result.Add(new TransferRequestModel
                 {
                     TransactionId = item.TransactionId,
-                    transactionNo = item.TransactionNo,
+                    TransactionNo = item.TransactionNo,
                     TransactionType = item.TransactionType,
                     FromMobileNo = item.FromMobileNo,
                     ToMobileNo = item.ToMobileNo,
                     TransferedAmount = item.TransferedAmount,
                     Dates = item.Dates,
-                    Notes = item.Notes
+                    Notes = item.Notes!
                 });
             }
 
