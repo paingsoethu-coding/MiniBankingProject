@@ -10,21 +10,21 @@ namespace MiniBankingProject.Domain.Features.Validation
 {
     public class NumericOnlyAttribute : ValidationAttribute
     {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
             if (value == null)
             {
                 return new ValidationResult($"{validationContext.DisplayName} is required.");
             }
 
-            string strValue = value.ToString();
+            string? strValue = value.ToString();
 
-            if (!strValue.All(char.IsDigit))
+            if (strValue == null || !strValue.All(char.IsDigit))
             {
                 return new ValidationResult($"{validationContext.DisplayName} must contain only numbers.");
             }
 
-            return ValidationResult.Success;
+            return ValidationResult.Success!;
         }
     }
 
