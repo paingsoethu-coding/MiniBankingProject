@@ -283,7 +283,7 @@ namespace MiniBankingProject.Domain.Features.User
             //var no = 0!;
             //if (tbltransaction_for_No is not null)
             //{
-            //    no = tbltransaction_for_No.TransactionNo + 1;
+            //    no = tbltransaction_for_No.TransactionNo + 1;;
             //}
             
 
