@@ -108,6 +108,9 @@ namespace MiniBankingProject.Domain.Features.Transaction
             {
                 return null;
             }
+
+            item.DeleteFlag = false;
+
             _db.Entry(item).State = EntityState.Deleted;
             var result = _db.SaveChanges();
 
