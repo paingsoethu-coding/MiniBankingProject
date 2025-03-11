@@ -1,16 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using MiniBankingProject.Database.Models;
 using MiniBankingProject.Domain.Features.Validation;
 using MiniBankingProject.Domain.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiniBankingProject.Domain.Features.User
 {
@@ -20,7 +12,7 @@ namespace MiniBankingProject.Domain.Features.User
 
         public TblUser? LoginUser(string moblieno, string pin)
         {
-           
+
             var model = _db.TblUsers
             .AsNoTracking()
             .FirstOrDefault(x => x.MobileNo == moblieno
@@ -54,8 +46,8 @@ namespace MiniBankingProject.Domain.Features.User
         public TblUser? UpdateUser(int id, TblUser user)
         {
             var item = _db.TblUsers.FirstOrDefault(x => x.UserId == id);
-            if (item is null) {return null;}
-            
+            if (item is null) { return null; }
+
             item.FullName = user.FullName;
             item.UpdatedDate = DateTime.Now;
 
@@ -228,9 +220,9 @@ namespace MiniBankingProject.Domain.Features.User
             await _db.TblTransactions.AddAsync(transaction);
             await _db.SaveChangesAsync();
 
-            model.Transaction = transaction; 
+            model.Transaction = transaction;
             model.Response = BaseResponseModel.Success("000", "Success");
-            
+
         Result:
             return model;
         }
@@ -285,7 +277,7 @@ namespace MiniBankingProject.Domain.Features.User
             //{
             //    no = tbltransaction_for_No.TransactionNo + 1;;
             //}
-            
+
 
             TblTransaction transaction = new TblTransaction
             {
@@ -428,7 +420,7 @@ namespace MiniBankingProject.Domain.Features.User
 
         [Required(ErrorMessage = "PIN is required.")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "PIN must be exactly 6 characters.")]
-        [NumericOnly]  
+        [NumericOnly]
         public required string Pin { get; set; }
     }
 
@@ -438,7 +430,7 @@ namespace MiniBankingProject.Domain.Features.User
         [Required(ErrorMessage = "Old PIN is required.")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "Old PIN must be exactly 6 digits.")]
         [RegularExpression(@"^\d{6}$", ErrorMessage = "Old PIN must contain only numbers.")]
-        public required string OldPin { get; set; } 
+        public required string OldPin { get; set; }
 
         [Required(ErrorMessage = "New PIN is required.")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "New PIN must be exactly 6 digits.")]
